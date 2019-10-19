@@ -53,6 +53,9 @@ class App extends React.Component {
     }
     this.addTrack = this.addTrack.bind(this);
     this.removeTrack = this.removeTrack.bind(this);
+    this.updatePlaylistName = this.updatePlaylistName.bind(this);
+    this.savePlaylist = this.savePlaylist.bind(this);
+    this.seacrh = this.seacrh.bind(this);
   }
 
   addTrack(track) {
@@ -78,11 +81,25 @@ class App extends React.Component {
     })
   }
 
+  updatePlaylistName(playlistName){
+    this.setState({
+      playlistName: playlistName
+    });
+  }
+
+  savePlaylist() {
+    const trackURIs = [];
+  }
+
+  seacrh(term) {
+    console.log(term);
+  }
+
   render() {
     return <div>
       <h1>Ja<span className="highlight">mmm</span>ing</h1>
       <div className="App">
-        <SearchBar />
+        <SearchBar  onSearch={this.seacrh}/>
         <div className="App-playlist">
           <SearchResults  searchResults={this.state.searchResults} 
                           onAdd = {this.addTrack}
@@ -90,6 +107,8 @@ class App extends React.Component {
           <Playlist playlistName={this.state.playlistName} 
                     playlist={this.state.playlist} 
                     onRemove = {this.removeTrack}
+                    onNameChange={this.updatePlaylistName}
+                    onSave={this.savePlaylist}
                     />
         </div>
       </div>
