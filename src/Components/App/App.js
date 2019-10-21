@@ -93,11 +93,12 @@ class App extends React.Component {
   }
 
   seacrh(term) {
-    const searchResults = Spotify.search(term);
-    console.log(searchResults);
+    Spotify.search(term).then(searchResults => {
+      console.log(searchResults);
     this.setState({
-      SearchResults: searchResults
+      searchResults: searchResults
     })
+  })
   }
 
   render() {

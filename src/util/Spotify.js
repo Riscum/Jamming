@@ -1,10 +1,10 @@
-let userAccessToken  = '';
-const redirectUri = 'http://localhost:3000/';
+let userAccessToken;
+const redirectUri = 'http://localhost:3000/'; 
 const clientId = '2f47e23c803b4680a707038318d03bfd';
 
 const Spotify = {
 
-    getAccessToken: () => {
+    getAccessToken() {
         if (userAccessToken){
             return userAccessToken;
         }
@@ -25,16 +25,19 @@ const Spotify = {
 //https://accounts.spotify.com/authorize?client_id=CLIENT_ID&response_type=token&scope=playlist-modify-public&redirect_uri=REDIRECT_URI
 
     },
-    search: (term) => {
-        fetch(`https://api.spotify.com/v1/search?type=track&q=${term}`,{
-            headers: {Authorization: `Bearer ${userAccessToken}`}
+    search(term) {
+        const userAccessToken = Spotify.getAccessToken();
+        return fetch(`https://api.spotify.com/v1/search?type=track&q=${term}`,{
+            headers: {
+                Authorization: `Bearer ${userAccessToken}`
+            }
         }).then( response => {
             return response.json();
         }).then( jsonResponse => {
             if(!jsonResponse.tracks){
                 return [];
             } else {
-                return jsonResponse.tracks.item.map(track => ({
+                return jsonResponse.tracks.items.map(track => ({
                     id: track.id,
                     name: track.name,
                     artist: track.artists[0].name,
@@ -44,6 +47,9 @@ const Spotify = {
                 )
             }
         })
+    },
+
+
     }
 };
 
