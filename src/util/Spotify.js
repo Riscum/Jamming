@@ -1,5 +1,5 @@
 let userAccessToken;
-const redirectUri = 'http://localhost:3000/';
+const redirectUri = 'http://dfjamming.surge.sh/';
 const clientId = '2f47e23c803b4680a707038318d03bfd';
 
 const Spotify = {
